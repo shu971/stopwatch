@@ -72,11 +72,11 @@ button:hover {
   background: #dddddd;
 }
 
-#startBtn {
+#toggleBtn {
   background: #222;
   color: white;
 }
 
-#startBtn:hover {
+#toggleBtn:hover {
   background: #444;
 }

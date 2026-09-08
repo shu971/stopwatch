@@ -1,7 +1,6 @@
 const display = document.getElementById("display");
 
-const startBtn = document.getElementById("startBtn");
-const stopBtn = document.getElementById("stopBtn");
+const toggleBtn = document.getElementById("toggleBtn");
 const resetBtn = document.getElementById("resetBtn");
 
 let startTime = 0;
@@ -34,23 +33,27 @@ function updateDisplay() {
 }
 
 function startTimer() {
-  if (timerId !== null) {
-    return;
-  }
-
   startTime = performance.now();
   timerId = requestAnimationFrame(updateDisplay);
+
+  toggleBtn.textContent = "ストップ";
 }
 
 function stopTimer() {
-  if (timerId === null) {
-    return;
-  }
-
   elapsedTime += performance.now() - startTime;
 
   cancelAnimationFrame(timerId);
   timerId = null;
+
+  toggleBtn.textContent = "スタート";
+}
+
+function toggleTimer() {
+  if (timerId === null) {
+    startTimer();
+  } else {
+    stopTimer();
+  }
 }
 
 function resetTimer() {
@@ -63,8 +66,8 @@ function resetTimer() {
   elapsedTime = 0;
 
   display.textContent = "00:00.00";
+  toggleBtn.textContent = "スタート";
 }
 
-startBtn.addEventListener("click", startTimer);
-stopBtn.addEventListener("click", stopTimer);
+toggleBtn.addEventListener("click", toggleTimer);
 resetBtn.addEventListener("click", resetTimer);
